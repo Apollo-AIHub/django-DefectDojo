@@ -401,7 +401,7 @@ if os.getenv("DD_DATABASE_URL") is not None:
 else:
     DATABASES = {
         "default": {
-            "ENGINE": env("DD_DATABASE_ENGINE"),
+            "ENGINE": env("DD_DATABASE_ENGINE",default="django.db.backends.postgresql"),
             "NAME": env("DD_DATABASE_NAME"),
             "TEST": {
                 "NAME": env("DD_TEST_DATABASE_NAME"),
