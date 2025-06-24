@@ -401,18 +401,15 @@ if os.getenv("DD_DATABASE_URL") is not None:
 else:
     DATABASES = {
         "default": {
-            "ENGINE": env("DD_DATABASE_ENGINE",default="django.db.backends.postgresql"),
-            "NAME": env("DD_DATABASE_NAME"),
-            "TEST": {
-                "NAME": env("DD_TEST_DATABASE_NAME"),
-            },
-            "USER": env("DD_DATABASE_USER"),
-            "PASSWORD": env("DD_DATABASE_PASSWORD"),
-            "HOST": env("DD_DATABASE_HOST"),
-            "PORT": env("DD_DATABASE_PORT"),
-        },
+            "ENGINE": os.getenv("DD_DATABASE_ENGINE", "django.db.backends.postgresql"),
+            "NAME": os.getenv("DD_DATABASE_NAME", "defectdojo"),
+            "USER": os.getenv("DD_DATABASE_USER", "defectdojo"),
+            "PASSWORD": os.getenv("DD_DATABASE_PASSWORD"),
+            "HOST": os.getenv("DD_DATABASE_HOST"),
+            "PORT": os.getenv("DD_DATABASE_PORT", "5432"),
+            "OPTIONS": {"sslmode": "require"},
+        }
     }
-
 # Track migrations through source control rather than making migrations locally
 if env("DD_TRACK_MIGRATIONS"):
     MIGRATION_MODULES = {"dojo": "dojo.db_migrations"}
