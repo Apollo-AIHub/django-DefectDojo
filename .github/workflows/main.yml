@@ -30,6 +30,14 @@ jobs:
     - name: Run database migrations
       run: |
         python manage.py migrate
+      env:
+       DJANGO_SETTINGS_MODULE: dojo.settings
+       DD_DATABASE_ENGINE: django.db.backends.postgresql
+       DD_DATABASE_NAME: defectdojo
+       DD_DATABASE_USER: defectdojo
+       DD_DATABASE_PASSWORD: ${{ secrets.DD_DATABASE_PASSWORD }}
+       DD_DATABASE_HOST: clinical-ai-defectdojo-server.postgres.database.azure.com
+       DD_DATABASE_PORT: 5432
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
